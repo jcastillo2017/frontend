@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="shortcut icon" type="image/x-icon" href="../public/favicon.ico" />
+  <title>Test Front End</title>
+  
+  <link href="public/css/bootstrap.css" rel="stylesheet">
+  <script type="text/javascript" src="public/js/jquery-2.1.1.min.js"></script>
+  <script src="public/js/bootstrap.js"></script>
+  
+</head>
+<body >
+
+<div id="contenido">
+	<nav class="navbar navbar-default">
+	<div class="container-fluid">
+	  <div class="navbar-header">
+	    <span class="navbar-brand fg-azul" href="#">Test Front End</span>
+	  </div>
+	</div><!-- /.container-fluid -->
+	</nav>
+
+	<div class="container-fluid">
+		<div class="row">
+	    <div class="col-md-6">
+
+	    	<h3>Ordenador de serie</h3>
+	    	<br>
+	    	<form >
+	    	<div class="row">
+	    		<div class="col-md-4 text-right">
+	    			Número	
+	    		</div>
+	    		<div class="col-md-8">
+	    			<div class="form-group">
+					    <input type="number" class="form-control" id="numero" aria-describedby="Numero" placeholder="">
+					    <small id="numeroHelp" class="form-text text-muted">Por favor introduzca solo números</small>
+					  </div>	
+	    		</div>
+				</div>
+				<div class="row">
+	    		<div class="col-md-12 text-right">
+	    			<!--<input type="submit" class="btn btn-primary" value="Ingresar">-->
+	    			<button type="button" id="boton" class="btn btn-primary">Ingresar</button>
+	    		</div>
+				</div>
+				</form>
+
+				<p></p>
+				
+	    	<div class="row">
+	    		<div class="col-md-12">
+	    		<h3>Lista original</h3>
+	    			<!--<span id="lista"></span>-->
+		    		<div id="lista">
+			    		<nav aria-label="Page navigation">
+							  <ul class="pagination">
+							  </ul>
+							</nav>
+						</div>
+	    		</div>
+				</div>
+
+	    	<div class="row">
+	    		<div class="col-md-8">
+	    		<h3>Resultado</h3>
+	    		<span id="resultado"></span>
+	    		</div>
+	    		<div class="col-md-4 text-right">
+	    			<button type="button" id="ordenar" class="btn btn-primary">Ordenar 
+	    			<span class=" glyphicon glyphicon-sort-by-order fg-blanco btn-sm cursor-mano" aria-hidden="true" title="Ordenar Números"></span>
+	    			</button>
+	    		</div>
+	    	</div>
+
+	    	<div class="row">
+	    		<div class="col-md-12">
+		    		<div id="final">
+						</div>
+	    		</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+$(document).ready(function($){
+
+	var aNumeros = [];
+
+	$("#boton").click(function() {
+		aNumeros.push($("#numero").val());
+		$("#lista ul").append(' <li><a href="#">'+ $("#numero").val() +'</a></li>');
+		$("#numero").val('');
+  });
+
+  $("#ordenar").click(function() {
+  	cantLineas = burbuja(aNumeros);
+
+  	setTimeout(function() {
+			borrar(cantLineas);
+		}, 3000);
+  	
+  });
+
+});
+
+	function burbuja(aNumeros)
+	{
+
+		var f = 0;
+		for(var i=1;i<aNumeros.length;i++)
+		{				
+			for(var j=0;j<(aNumeros.length-i);j++)
+			{
+				f++;
+				if(aNumeros[j]>aNumeros[j+1])
+				{
+					k=aNumeros[j+1];
+					aNumeros[j+1]=aNumeros[j];
+					aNumeros[j]=k;
+				}
+
+				objeto = '<nav id="cadena'+ f +'" aria-label="Page navigation"><ul class="pagination">';
+				for(var k=0;k<aNumeros.length;k++)
+				{
+					objeto += '<li><a href="#">' + aNumeros[k] + '</a></li>';	
+				}
+				objeto += '</ul></nav>';
+				$("#final").append(objeto).hide().delay(2000).show();
+			}
+		}
+		return f;
+	}
+
+	function borrar(cantLineas)
+	{
+		for(var k=0;k<cantLineas;k++)
+		{
+			$("#cadena" + k ).append(objeto).delay(3000).hide();
+		}
+	}
+
+</script>
+
+</body>
+</html>
